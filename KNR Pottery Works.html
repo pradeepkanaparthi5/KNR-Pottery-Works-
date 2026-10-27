@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNR Pottery Works & KVD Ceramics</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        terracotta: {
+                            DEFAULT: '#B95233',
+                            light: '#D36F52',
+                            dark: '#8E3A20',
+                        },
+                        earth: {
+                            brown: '#4A3424',
+                            beige: '#EFE7DB',
+                            cream: '#FAF7F2',
+                            sand: '#D5C4B1'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Hide scrollbar for the gallery but keep functionality */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Smooth reveal animation classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* Custom shape divider for sections */
+        .custom-shape-divider-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+        }
+        .custom-shape-divider-bottom svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 40px;
+        }
+        .custom-shape-divider-bottom .shape-fill {
+            fill: #FAF7F2;
+        }
+    </style>
+</head>
+<body class="font-sans bg-earth-cream text-earth-brown antialiased selection:bg-terracotta selection:text-white">
+
+    <!-- Header & Navigation -->
+    <header class="fixed w-full top-0 z-50 bg-earth-cream/90 backdrop-blur-md shadow-sm border-b border-earth-sand/30 transition-all duration-300" id="header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo/Title -->
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-terracotta rounded-full flex items-center justify-center text-white shadow-md">
+                        <i class="fa-solid fa-jar"></i>
+                    </div>
+                    <a href="#home" class="font-serif font-bold text-xl md:text-2xl text-earth-brown">
+                        KNR & KVD Works
+                    </a>
+                </div>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-earth-brown hover:text-terracotta font-medium transition-colors">Home</a>
+                    <a href="#pottery" class="text-earth-brown hover:text-terracotta font-medium transition-colors">Pottery Works</a>
+                    <a href="#ceramics" class="text-earth-brown hover:text-terracotta font-medium transition-colors">Ceramics</a>
+                    <a href="#contact" class="bg-terracotta hover:bg-terracotta-dark text-white px-6 py-2.5 rounded-full font-medium transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">Order Now</a>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-earth-brown hover:text-terracotta focus:outline-none p-2 text-2xl">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-earth-beige absolute w-full shadow-xl border-b border-earth-sand">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col text-center">
+                <a href="#home" class="mobile-link block px-3 py-3 text-earth-brown font-medium hover:bg-earth-sand/50 rounded-lg">Home</a>
+                <a href="#pottery" class="mobile-link block px-3 py-3 text-earth-brown font-medium hover:bg-earth-sand/50 rounded-lg">Pottery Works</a>
+                <a href="#ceramics" class="mobile-link block px-3 py-3 text-earth-brown font-medium hover:bg-earth-sand/50 rounded-lg">Ceramics</a>
+                <a href="#contact" class="mobile-link block px-3 py-3 mt-4 bg-terracotta text-white rounded-lg font-medium shadow-md">Order Now</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-24 lg:pt-48 lg:pb-32 overflow-hidden bg-earth-beige min-h-[90vh] flex items-center">
+        <!-- Decorative Background Elements -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-earth-sand/30 blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-terracotta/10 blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="text-center max-w-3xl mx-auto">
+                <p class="text-terracotta font-semibold tracking-widest uppercase text-sm mb-4 reveal">Traditional & Modern Craftsmanship</p>
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-earth-brown mb-6 leading-tight reveal delay-100">
+                    Art Formed from <span class="italic text-terracotta">Earth & Fire</span>
+                </h1>
+                <p class="text-lg md:text-xl text-earth-brown/80 mb-10 reveal delay-200">
+                    Discover the beauty of handcrafted clay works and premium ceramic tiles. Bringing nature, tradition, and elegance directly to your home.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4 reveal delay-300">
+                    <a href="#contact" class="bg-terracotta hover:bg-terracotta-dark text-white px-8 py-3.5 rounded-full text-lg font-medium transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cart-shopping"></i> Order Now
+                    </a>
+                    <a href="#pottery" class="bg-transparent border-2 border-earth-brown text-earth-brown hover:bg-earth-brown hover:text-white px-8 py-3.5 rounded-full text-lg font-medium transition-all flex items-center justify-center gap-2">
+                        View Collection <i class="fa-solid fa-arrow-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SVG Divider -->
+        <div class="custom-shape-divider-bottom">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Pottery Works Section (Gallery) -->
+    <section id="pottery" class="py-24 bg-earth-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <span class="text-terracotta font-semibold tracking-wider uppercase text-sm mb-2 block">Our Masterpieces</span>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-earth-brown mb-4">KNR Pottery Works</h2>
+                <div class="w-24 h-1 bg-terracotta mx-auto rounded-full mb-6"></div>
+                <p class="text-earth-brown/70 max-w-2xl mx-auto">Explore our collection of authentic, handcrafted mud and clay products. Swipe or scroll horizontally to view our artistry.</p>
+            </div>
+
+            <!-- Horizontal Scroll Gallery -->
+            <div class="relative reveal delay-100">
+                <!-- Navigation Hints -->
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 z-10 hidden md:block -ml-4">
+                    <button onclick="document.getElementById('gallery-track').scrollBy({left: -350, behavior: 'smooth'})" class="w-12 h-12 bg-white/90 backdrop-blur rounded-full shadow-lg flex items-center justify-center text-earth-brown hover:text-terracotta hover:scale-110 transition-all border border-earth-sand">
+                        <i class="fa-solid fa-chevron-left text-xl"></i>
+                    </button>
+                </div>
+                <div class="absolute right-0 top-1/2 -translate-y-1/2 z-10 hidden md:block -mr-4">
+                    <button onclick="document.getElementById('gallery-track').scrollBy({left: 350, behavior: 'smooth'})" class="w-12 h-12 bg-white/90 backdrop-blur rounded-full shadow-lg flex items-center justify-center text-earth-brown hover:text-terracotta hover:scale-110 transition-all border border-earth-sand">
+                        <i class="fa-solid fa-chevron-right text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Scrolling Track -->
+                <div id="gallery-track" class="flex overflow-x-auto gap-6 pb-10 pt-4 snap-x snap-mandatory hide-scrollbar scroll-smooth items-center">
+                    
+                    <!-- Item 1 -->
+                    <div class="snap-center shrink-0 w-[85vw] sm:w-[350px] group">
+                        <div class="bg-white p-3 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 h-full border border-earth-sand/50">
+                            <div class="overflow-hidden rounded-xl bg-earth-beige relative aspect-[4/5] flex items-center justify-center">
+                                <img src="1000792723.jpg" alt="Clay Shiva Lingam with Flower" 
+                                     class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.onerror=null; this.outerHTML='<div class=\'w-full h-full flex flex-col items-center justify-center text-earth-brown/50 bg-earth-sand/30\'><i class=\'fa-solid fa-image text-4xl mb-2\'></i><span>Image 1</span></div>';">
+                            </div>
+                            <div class="pt-4 pb-2 px-2 text-center">
+                                <h3 class="font-serif font-semibold text-lg">Sacred Shiva Lingam</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="snap-center shrink-0 w-[85vw] sm:w-[350px] group">
+                        <div class="bg-white p-3 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 h-full border border-earth-sand/50">
+                            <div class="overflow-hidden rounded-xl bg-earth-beige relative aspect-[4/5] flex items-center justify-center">
+                                <img src="1000802343.jpg" alt="Clay Tea Cups / Kulhad" 
+                                     class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.onerror=null; this.outerHTML='<div class=\'w-full h-full flex flex-col items-center justify-center text-earth-brown/50 bg-earth-sand/30\'><i class=\'fa-solid fa-image text-4xl mb-2\'></i><span>Image 2</span></div>';">
+                            </div>
+                            <div class="pt-4 pb-2 px-2 text-center">
+                                <h3 class="font-serif font-semibold text-lg">Traditional Tea Cups</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="snap-center shrink-0 w-[85vw] sm:w-[350px] group">
+                        <div class="bg-white p-3 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 h-full border border-earth-sand/50">
+                            <div class="overflow-hidden rounded-xl bg-earth-beige relative aspect-[4/5] flex items-center justify-center">
+                                <img src="1000802332.jpg" alt="Stacked Clay Pots in Workshop" 
+                                     class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.onerror=null; this.outerHTML='<div class=\'w-full h-full flex flex-col items-center justify-center text-earth-brown/50 bg-earth-sand/30\'><i class=\'fa-solid fa-image text-4xl mb-2\'></i><span>Image 3</span></div>';">
+                            </div>
+                            <div class="pt-4 pb-2 px-2 text-center">
+                                <h3 class="font-serif font-semibold text-lg">Workshop Creations</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="snap-center shrink-0 w-[85vw] sm:w-[350px] group">
+                        <div class="bg-white p-3 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 h-full border border-earth-sand/50">
+                            <div class="overflow-hidden rounded-xl bg-earth-beige relative aspect-[4/5] flex items-center justify-center">
+                                <img src="1000800102_2.jpg" alt="Decorative Carved Face Pot" 
+                                     class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.onerror=null; this.outerHTML='<div class=\'w-full h-full flex flex-col items-center justify-center text-earth-brown/50 bg-earth-sand/30\'><i class=\'fa-solid fa-image text-4xl mb-2\'></i><span>Image 4</span></div>';">
+                            </div>
+                            <div class="pt-4 pb-2 px-2 text-center">
+                                <h3 class="font-serif font-semibold text-lg">Expressive Face Pots</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="snap-center shrink-0 w-[85vw] sm:w-[350px] group">
+                        <div class="bg-white p-3 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 h-full border border-earth-sand/50">
+                            <div class="overflow-hidden rounded-xl bg-earth-beige relative aspect-[4/5] flex items-center justify-center">
+                                <img src="1000797280_2.jpg" alt="Artisan Crafting Piggy Banks" 
+                                     class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.onerror=null; this.outerHTML='<div class=\'w-full h-full flex flex-col items-center justify-center text-earth-brown/50 bg-earth-sand/30\'><i class=\'fa-solid fa-image text-4xl mb-2\'></i><span>Image 5</span></div>';">
+                            </div>
+                            <div class="pt-4 pb-2 px-2 text-center">
+                                <h3 class="font-serif font-semibold text-lg">Master at Work</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="snap-center shrink-0 w-[85vw] sm:w-[350px] group">
+                        <div class="bg-white p-3 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 h-full border border-earth-sand/50">
+                            <div class="overflow-hidden rounded-xl bg-earth-beige relative aspect-[4/5] flex items-center justify-center">
+                                <img src="1000797283_2.jpg" alt="Detailed Clay Piggy Banks" 
+                                     class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.onerror=null; this.outerHTML='<div class=\'w-full h-full flex flex-col items-center justify-center text-earth-brown/50 bg-earth-sand/30\'><i class=\'fa-solid fa-image text-4xl mb-2\'></i><span>Image 6</span></div>';">
+                            </div>
+                            <div class="pt-4 pb-2 px-2 text-center">
+                                <h3 class="font-serif font-semibold text-lg">Carved Savings Pots</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 7 -->
+                    <div class="snap-center shrink-0 w-[85vw] sm:w-[350px] group">
+                        <div class="bg-white p-3 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 h-full border border-earth-sand/50">
+                            <div class="overflow-hidden rounded-xl bg-earth-beige relative aspect-[4/5] flex items-center justify-center">
+                                <img src="1000796041_2.jpg" alt="Assorted Clay Bottles" 
+                                     class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.onerror=null; this.outerHTML='<div class=\'w-full h-full flex flex-col items-center justify-center text-earth-brown/50 bg-earth-sand/30\'><i class=\'fa-solid fa-image text-4xl mb-2\'></i><span>Image 7</span></div>';">
+                            </div>
+                            <div class="pt-4 pb-2 px-2 text-center">
+                                <h3 class="font-serif font-semibold text-lg">Eco-friendly Bottles</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 8 -->
+                    <div class="snap-center shrink-0 w-[85vw] sm:w-[350px] group">
+                        <div class="bg-white p-3 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 h-full border border-earth-sand/50">
+                            <div class="overflow-hidden rounded-xl bg-earth-beige relative aspect-[4/5] flex items-center justify-center">
+                                <img src="1000794806_2.jpg" alt="Clay Lingam and Water Bottle Side View" 
+                                     class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.onerror=null; this.outerHTML='<div class=\'w-full h-full flex flex-col items-center justify-center text-earth-brown/50 bg-earth-sand/30\'><i class=\'fa-solid fa-image text-4xl mb-2\'></i><span>Image 8</span></div>';">
+                            </div>
+                            <div class="pt-4 pb-2 px-2 text-center">
+                                <h3 class="font-serif font-semibold text-lg">Spiritual Sets</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 9 -->
+                    <div class="snap-center shrink-0 w-[85vw] sm:w-[350px] group">
+                        <div class="bg-white p-3 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 h-full border border-earth-sand/50">
+                            <div class="overflow-hidden rounded-xl bg-earth-beige relative aspect-[4/5] flex items-center justify-center">
+                                <img src="1000794809_2.jpg" alt="Clay Works with God Posters Background" 
+                                     class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                     onerror="this.onerror=null; this.outerHTML='<div class=\'w-full h-full flex flex-col items-center justify-center text-earth-brown/50 bg-earth-sand/30\'><i class=\'fa-solid fa-image text-4xl mb-2\'></i><span>Image 9</span></div>';">
+                            </div>
+                            <div class="pt-4 pb-2 px-2 text-center">
+                                <h3 class="font-serif font-semibold text-lg">Devotional Collection</h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ceramics Section -->
+    <section id="ceramics" class="py-24 bg-earth-brown text-earth-cream relative overflow-hidden">
+        <!-- Decorative bg patterns -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#EFE7DB 2px, transparent 2px); background-size: 30px 30px;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="md:w-1/2 reveal">
+                    <span class="text-terracotta-light font-semibold tracking-wider uppercase text-sm mb-2 block">Modern Living</span>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">KVD Ceramics</h2>
+                    <p class="text-earth-beige text-lg mb-8 leading-relaxed">
+                        Complementing our traditional pottery, <strong>KVD Ceramics</strong> offers an exquisite selection of premium ceramic tiles. 
+                        Whether you are building a new home or renovating, we provide beautiful, durable, and modern tile designs to elevate your spaces.
+                    </p>
+                    <ul class="space-y-4 mb-10 text-earth-cream/90">
+                        <li class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-terracotta flex items-center justify-center mr-4 shrink-0">
+                                <i class="fa-solid fa-check text-sm"></i>
+                            </div>
+                            High-Quality Floor & Wall Tiles
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-terracotta flex items-center justify-center mr-4 shrink-0">
+                                <i class="fa-solid fa-check text-sm"></i>
+                            </div>
+                            Vast Range of Contemporary Designs
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-terracotta flex items-center justify-center mr-4 shrink-0">
+                                <i class="fa-solid fa-check text-sm"></i>
+                            </div>
+                            Best Prices in Dwaraka Tirumala
+                        </li>
+                    </ul>
+                    <a href="#contact" class="inline-flex items-center justify-center gap-2 bg-earth-cream text-earth-brown hover:bg-white px-8 py-3.5 rounded-full text-lg font-bold transition-all shadow-lg transform hover:-translate-y-1">
+                        Visit Shop <i class="fa-solid fa-store"></i>
+                    </a>
+                </div>
+                
+                <div class="md:w-1/2 w-full grid grid-cols-2 gap-4 reveal delay-200">
+                    <!-- Abstract representation of ceramic tiles -->
+                    <div class="aspect-square bg-gradient-to-br from-earth-sand to-earth-beige rounded-2xl shadow-xl transform translate-y-6 flex items-center justify-center overflow-hidden border border-earth-sand/30">
+                        <i class="fa-solid fa-layer-group text-6xl text-earth-brown/20"></i>
+                    </div>
+                    <div class="aspect-square bg-gradient-to-tr from-white to-earth-beige rounded-2xl shadow-xl flex items-center justify-center overflow-hidden border border-white/50">
+                        <div class="w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0wIDIwaDIwdjIwaC0yMHoiIGZpbGw9IiNkNWM0YjEiIGZpbGwtb3BhY2l0eT0iMC4yIi8+PHBhdGggZD0iTTIwIDBoMjB2MjBoLTIweiIgZmlsbD0iI2Q1YzRiMSIgZmlsbC1vcGFjaXR5PSIwLjIiLz48L3N2Zz4=')]"></div>
+                    </div>
+                    <div class="aspect-square bg-gradient-to-bl from-terracotta/20 to-earth-sand rounded-2xl shadow-xl transform translate-y-6 flex items-center justify-center overflow-hidden border border-terracotta/10">
+                        <div class="w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMTAiIGZpbGw9IiNiOTUyMzMiIGZpbGwtb3BhY2l0eT0iMC4xNSIvPjwvc3ZnPg==')]"></div>
+                    </div>
+                    <div class="aspect-square bg-white rounded-2xl shadow-xl flex items-center justify-center overflow-hidden border border-earth-sand">
+                         <i class="fa-solid fa-shapes text-6xl text-earth-brown/20"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-earth-beige relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <span class="text-terracotta font-semibold tracking-wider uppercase text-sm mb-2 block">Get in Touch</span>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-earth-brown mb-4">Contact & Orders</h2>
+                <div class="w-24 h-1 bg-terracotta mx-auto rounded-full mb-6"></div>
+                <p class="text-earth-brown/70 max-w-xl mx-auto">We are ready to fulfill your pottery and ceramic tile requirements. Visit our store or message us directly.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                
+                <!-- Contact Details Card -->
+                <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-earth-sand/50 reveal delay-100 flex flex-col justify-between h-full">
+                    <div>
+                        <h3 class="text-2xl font-serif font-bold text-earth-brown mb-8 border-b border-earth-sand pb-4">Proprietor Details</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-earth-beige rounded-xl flex items-center justify-center text-terracotta shrink-0">
+                                    <i class="fa-solid fa-user text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-earth-brown/60 uppercase tracking-wide">Name</p>
+                                    <p class="text-xl font-medium text-earth-brown">Kanaparthi Nageswararao</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-earth-beige rounded-xl flex items-center justify-center text-terracotta shrink-0">
+                                    <i class="fa-solid fa-phone text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-earth-brown/60 uppercase tracking-wide">Phone</p>
+                                    <p class="text-xl font-medium text-earth-brown">8885414130</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-earth-beige rounded-xl flex items-center justify-center text-terracotta shrink-0">
+                                    <i class="fa-solid fa-location-dot text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-earth-brown/60 uppercase tracking-wide">Address</p>
+                                    <p class="text-lg font-medium text-earth-brown leading-relaxed">
+                                        KVD Ceramics tiles, near Kunkullamma temple main road, Dwaraka Tirumala.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons Card -->
+                <div class="flex flex-col gap-6 reveal delay-200 h-full">
+                    
+                    <!-- WhatsApp Action -->
+                    <div class="bg-white rounded-3xl p-8 shadow-xl border border-green-100 flex flex-col items-center justify-center text-center flex-1 transition-transform hover:-translate-y-1 duration-300">
+                        <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mb-6">
+                            <i class="fa-brands fa-whatsapp text-5xl text-[#25D366]"></i>
+                        </div>
+                        <h4 class="text-2xl font-serif font-bold text-earth-brown mb-2">Message Us</h4>
+                        <p class="text-earth-brown/70 mb-6">Fastest way to enquire about orders, stock, and pricing.</p>
+                        <a href="https://wa.me/918885414130" target="_blank" rel="noopener noreferrer" class="w-full py-4 bg-[#25D366] hover:bg-[#1DA851] text-white rounded-xl font-bold text-lg transition-colors shadow-md shadow-green-200 flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-xl"></i> Chat on WhatsApp
+                        </a>
+                    </div>
+
+                    <!-- Map Action -->
+                    <div class="bg-white rounded-3xl p-8 shadow-xl border border-blue-100 flex flex-col items-center justify-center text-center flex-1 transition-transform hover:-translate-y-1 duration-300">
+                        <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-map-location-dot text-4xl text-[#4285F4]"></i>
+                        </div>
+                        <h4 class="text-2xl font-serif font-bold text-earth-brown mb-2">Visit Store</h4>
+                        <p class="text-earth-brown/70 mb-6">Get exact directions to our shop in Dwaraka Tirumala.</p>
+                        <a href="https://maps.app.goo.gl/N1HpTjrhPZjyTHnx8" target="_blank" rel="noopener noreferrer" class="w-full py-4 bg-[#4285F4] hover:bg-[#3367D6] text-white rounded-xl font-bold text-lg transition-colors shadow-md shadow-blue-200 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-location-arrow"></i> Open Google Maps
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-earth-brown text-earth-sand py-8 border-t border-earth-sand/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+            <div>
+                <p class="font-serif font-bold text-xl text-white mb-1">KNR Pottery Works & KVD Ceramics</p>
+                <p class="text-sm">Dwaraka Tirumala, Andhra Pradesh</p>
+            </div>
+            <div class="text-sm">
+                <p>&copy; 2026 All Rights Reserved.</p>
+            </div>
+            <div class="flex gap-4 mt-2 md:mt-0">
+                <a href="https://wa.me/918885414130" target="_blank" class="w-10 h-10 rounded-full bg-earth-sand/10 flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors text-lg">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            const icon = btn.querySelector('i');
+            if(menu.classList.contains('hidden')) {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            }
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                btn.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+            });
+        });
+
+        // Header Scroll Style Logic
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                header.classList.add('py-1', 'shadow-md');
+                header.classList.remove('py-3');
+            } else {
+                header.classList.add('py-3');
+                header.classList.remove('py-1', 'shadow-md');
+            }
+        });
+        
+        // Initial setup for header
+        if (window.scrollY === 0) {
+            header.classList.add('py-3');
+        }
+
+        // Scroll Reveal Animation Logic (Intersection Observer)
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Trigger immediately for elements already in viewport on load
+            setTimeout(() => {
+                document.querySelectorAll('.reveal').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight) {
+                        el.classList.add('active');
+                    }
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>
